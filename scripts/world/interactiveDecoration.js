@@ -7,7 +7,7 @@ export class InteractiveDecoration extends Decoracion {
     
     this.isInteractive = infoData !== null;
     this.infoData = infoData;
-    this.interactionRange = 80; // Rango de interacción en píxeles
+    this.interactionRange = 100; // Rango de interacción en píxeles
     this.playerInRange = false;
   }
 
@@ -49,7 +49,7 @@ export class InteractiveDecoration extends Decoracion {
     ctx.globalAlpha = 0.6;
     
     ctx.beginPath();
-    ctx.arc(this.x, this.y, this.interactionRange, 0, 2 * Math.PI);
+    ctx.arc(this.x, this.y, this.interactionRange, 0, 3 * Math.PI);
     ctx.stroke();
     
     ctx.restore();
@@ -69,7 +69,7 @@ export class InteractiveDecoration extends Decoracion {
   // Indicador visual sutil cuando el jugador está en rango
   drawInteractionIndicator(ctx) {
     ctx.save();
-    ctx.fillStyle = "rgba(255, 255, 0, 0.3)";
+    ctx.fillStyle = "rgba(255, 255, 0, 0.12)";
     ctx.shadowColor = "yellow";
     ctx.shadowBlur = 10;
     

@@ -27,13 +27,13 @@ export const ContactMapConfig = {
   walls: [
     {
       id: 'wall_top_left',
-      x: 68, y: 70, width: 735, height: 156,
+      x: 68, y: 70, width: 735, height: 140,
       type: 'perimeter',
       hasCollision: true
     },
     {
       id: 'wall_top_right',
-      x: 1093, y: 70, width: 735, height: 156,
+      x: 1093, y: 70, width: 735, height: 140,
       type: 'perimeter',
       hasCollision: true
     },
@@ -53,19 +53,39 @@ export const ContactMapConfig = {
   
     {
       id: 'wall_left_bottom',
-      x: 68, y: 845, width: 1840, height: 100,
+      x: 68, y: 860, width: 1840, height: 100,
       type: 'internal',
       hasCollision: true
     },
     {
+      id: 'wall_left_bottom_false',
+      x: 68, y: 815, width: 1840, height: 95,
+      type: 'architecture',
+      hasCollision: false,
+      isHidingZone: true,           
+      hideOpacity: 0.95,           
+      hideType: 'outline',             
+      depthLevel: 1   
+    },
+    {
       id: 'wall_center_structure',
-      x: 597, y: 420, width: 753, height: 133,
+      x: 597, y: 435, width: 753, height: 105,
       type: 'structure',
       hasCollision: true
     },
     {
+      id: 'wall_center_structure',
+      x: 597, y: 392, width: 753, height: 95,
+      type: 'architecture',
+      hasCollision: false,
+      isHidingZone: true,           
+      hideOpacity: 0.95,           
+      hideType: 'outline',             
+      depthLevel: 1   
+    },
+    {
       id: 'wall_center_bottom',
-      x: 900, y: 420, width: 118, height: 470,
+      x: 900, y: 435, width: 118, height: 470,
       type: 'structure',
       hasCollision: true
     }
@@ -107,22 +127,22 @@ export const ContactMapConfig = {
 
     {
       sprite: 'static/assets/sprites/tilesets/decor/contact_map/cv_vitrina.png',
-      x: 370, y: 430, width: 120, height: 190,
+      x: 350, y: 430, width: 120, height: 190,
       hasCollision: true
     },
     {
       sprite: 'static/assets/sprites/tilesets/decor/contact_map/git_vitrina.png',
-      x: 370, y: 670, width: 120, height: 190,
+      x: 350, y: 670, width: 120, height: 190,
       hasCollision: true
     },
     {
       sprite: 'static/assets/sprites/tilesets/decor/contact_map/google_vitrina.png',
-      x: 1565, y: 430, width: 120, height: 190,
+      x: 1575, y: 430, width: 120, height: 190,
       hasCollision: true
     },
     {
       sprite: 'static/assets/sprites/tilesets/decor/contact_map/cisco_vitrina.png',
-      x: 1565, y: 670, width: 120, height: 190,
+      x: 1575, y: 670, width: 120, height: 190,
       hasCollision: true
     },
 
@@ -216,28 +236,28 @@ export const ContactMapConfig = {
   interactiveDecorations: [
     {
       sprite: 'static/assets/sprites/tilesets/decor/libro_vitrina.png',
-      x: 430, y: 520, width: 45, height: 60,
+      x: 435, y: 510, width: 45, height: 60,
       hasCollision: true,
       infoId: 'cv',
       type_ui: 'simple'
     },
     {
       sprite: 'static/assets/sprites/tilesets/decor/libro_vitrina.png',
-      x: 430, y: 750, width: 45, height: 60,
+      x: 435, y: 740, width: 45, height: 60,
       hasCollision: true,
       infoId: 'git',
       type_ui: 'simple'
     },
     {
       sprite: 'static/assets/sprites/tilesets/decor/libro_vitrina.png',
-      x: 1500, y: 520, width: 45, height: 60,
+      x: 1490, y: 510, width: 45, height: 60,
       hasCollision: true,
       infoId: 'google',
       type_ui: 'simple'
     },
     {
       sprite: 'static/assets/sprites/tilesets/decor/libro_vitrina.png',
-      x: 1500, y: 750, width: 45, height: 60,
+      x: 1490, y: 740, width: 45, height: 60,
       hasCollision: true,
       infoId: 'cisco',
       type_ui: 'principal'

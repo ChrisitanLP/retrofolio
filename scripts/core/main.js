@@ -58,7 +58,7 @@ class Game {
     }
 
     // Cargar el mapa inicial
-    this.loadMap('main');
+    this.loadMap('left');
 
     this.floorPattern = null;
     this.loadFloorTexture();
@@ -460,6 +460,7 @@ class Game {
     }
   }
 
+  // Método drawDebugInfo modificado - agregar información de ocultación
   drawDebugInfo() {
     if (this.wallManager) {
       this.wallManager.drawCollisionMap(this.ctx, 0.8);
@@ -492,7 +493,9 @@ class Game {
       `Nearby Decoration: ${this.nearbyDecoration ? 'Yes' : 'None'}`,
       `Prompt Visible: ${this.promptVisible}`,
       `Wall Manager: ${this.wallManager.isLoaded ? "Loaded" : "Loading..."}`,
-      `Collision Walls: ${wallStats.total} total, ${wallStats.active} active`,
+      `Collision Walls: ${wallStats.total} total, ${wallStats.active} active, ${wallStats.hidingZones} hiding zones`,
+      `Player Hidden: ${this.player.isHidden ? 'Yes' : 'No'}`,
+      `Player Opacity: ${this.player.hidingTransition.current.toFixed(2)}`,
       `Decoraciones en zona superior: ${decoracionesEnZonaSuperior}`,
       `Interactive Decorations: ${interactiveStats.total} total, ${interactiveStats.interactive} interactive, ${interactiveStats.inRange} in range`,
       `Game Started: ${this.gameStarted}`,
@@ -500,12 +503,20 @@ class Game {
       `Transitioning: ${this.mapManager.isTransitioning}`,
       "Red box: Player collision area",
       "Green rectangles: Inactive collision walls",
+      "Blue rectangles: Hiding zones",
       "Blue boxes: Decoration collision areas", 
       "Green areas: Depth zones (upper areas of decorations)",
       "Purple boxes: NPC collision areas",
       "Magenta boxes: Exit zones",
       "Yellow circles: Interactive decoration ranges"
     ];
+
+    // NUEVO: Mostrar información específica de la zona de ocultación si está activa
+    if (this.player.isHidden && this.player.hidingEffect) {
+      debugText.push(`Hiding Zone: ${this.player.hidingEffect.zone.id}`);
+      debugText.push(`Hide Type: ${this.player.hidingEffect.type}`);
+      debugText.push(`Target Opacity: ${this.player.hidingEffect.opacity}`);
+    }
 
     debugText.forEach((text, index) => {
       const y = 20 + (index * 15);

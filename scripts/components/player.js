@@ -70,6 +70,7 @@ export class Player {
     });
   }
 
+  // Método update modificado - agregar después de la detección de movimiento
   update(canvasWidth, canvasHeight, wallManager = null, gestorDecoraciones = null, npcs = null, dialogManager = null, collisionWalls = null) {
     // MEJORADO: Verificación más específica del estado del diálogo
     if (dialogManager && dialogManager.isDialogActiveAndBlocking()) {
@@ -130,7 +131,47 @@ export class Player {
       }
       this.updateIdleAnimation();
     }
+
+    // NUEVA FUNCIONALIDAD: Actualizar efecto de ocultación
+    this.updateHidingEffect(collisionWalls);
   }
+
+  updateHidingEffect(collisionWalls) {
+    if (!collisionWalls) {
+      this.hidingEffect = null;
+      this.isHidden = false;
+      this.hidingTransition.target = 1.0;
+      return;
+    }
+
+    // Obtener el efecto de ocultación actual
+    const newHidingEffect = collisionWalls.getHidingEffect(
+      this.x, 
+      this.y, 
+      this.collisionWidth, 
+      this.collisionHeight
+    );
+
+    // Actualizar el efecto de ocultación
+    this.hidingEffect = newHidingEffect;
+    this.isHidden = newHidingEffect !== null;
+    
+    // Establecer opacidad objetivo
+    if (this.isHidden) {
+      this.hidingTransition.target = this.hidingEffect.opacity;
+    } else {
+      this.hidingTransition.target = 1.0;
+    }
+
+    // Interpolar suavemente hacia la opacidad objetivo
+    const diff = this.hidingTransition.target - this.hidingTransition.current;
+    if (Math.abs(diff) > 0.01) {
+      this.hidingTransition.current += diff * this.hidingTransition.speed;
+    } else {
+      this.hidingTransition.current = this.hidingTransition.target;
+    }
+  }
+
 
   updateMovementAnimation() {
     this.frameCounter++;
@@ -215,20 +256,32 @@ export class Player {
     return false;
   }
 
+  // MÉTODO DRAW MODIFICADO: Aplicar efecto de ocultación
   draw(ctx) {
     if (!this.sprite) return;
     
-    ctx.drawImage(
-      this.sprite,
-      this.frameX * this.frameWidth,
-      (this.frameYBase + this.sideToggle) * this.frameHeight,
-      this.frameWidth,
-      this.frameHeight,
-      this.x - (this.frameWidth * this.scale) / 2,
-      this.y - (this.frameHeight * this.scale) / 2,
-      this.frameWidth * this.scale,
-      this.frameHeight * this.scale
-    );
+    // Aplicar efecto de ocultación si está activo
+    if (this.isHidden && this.hidingEffect) {
+      this.drawWithHidingEffect(ctx);
+    } else {
+      // Dibujo normal con transición de opacidad
+      ctx.save();
+      ctx.globalAlpha = this.hidingTransition.current;
+      
+      ctx.drawImage(
+        this.sprite,
+        this.frameX * this.frameWidth,
+        (this.frameYBase + this.sideToggle) * this.frameHeight,
+        this.frameWidth,
+        this.frameHeight,
+        this.x - (this.frameWidth * this.scale) / 2,
+        this.y - (this.frameHeight * this.scale) / 2,
+        this.frameWidth * this.scale,
+        this.frameHeight * this.scale
+      );
+      
+      ctx.restore();
+    }
   }
   
   // Método de debug para visualizar la caja de colisión
@@ -245,7 +298,192 @@ export class Player {
     ctx.restore();
   }
 
-  // Método de debug para visualizar el estado actual (mejorado)
+  drawWithHidingEffect(ctx) {
+    const zone = this.hidingEffect.zone;
+    
+    // Calcular qué partes del jugador están dentro de la zona
+    const playerLeft = this.x - (this.frameWidth * this.scale) / 2;
+    const playerRight = this.x + (this.frameWidth * this.scale) / 2;
+    const playerTop = this.y - (this.frameHeight * this.scale) / 2;
+    const playerBottom = this.y + (this.frameHeight * this.scale) / 2;
+    
+    const zoneLeft = zone.x;
+    const zoneRight = zone.x + zone.width;
+    const zoneTop = zone.y;
+    const zoneBottom = zone.y + zone.height;
+    
+    ctx.save();
+    
+    // Determinar el tipo de efecto de ocultación
+    switch (this.hidingEffect.type) {
+      case 'fade':
+        this.drawFadeEffect(ctx, playerLeft, playerTop, playerRight, playerBottom, 
+                          zoneLeft, zoneTop, zoneRight, zoneBottom);
+        break;
+      case 'invisible':
+        this.drawInvisibleEffect(ctx, playerLeft, playerTop, playerRight, playerBottom, 
+                                zoneLeft, zoneTop, zoneRight, zoneBottom);
+        break;
+      case 'outline':
+        this.drawOutlineEffect(ctx, playerLeft, playerTop, playerRight, playerBottom, 
+                              zoneLeft, zoneTop, zoneRight, zoneBottom);
+        break;
+      default:
+        this.drawFadeEffect(ctx, playerLeft, playerTop, playerRight, playerBottom, 
+                          zoneLeft, zoneTop, zoneRight, zoneBottom);
+    }
+    
+    ctx.restore();
+  }
+
+  // NUEVO MÉTODO: Efecto de desvanecimiento
+  drawFadeEffect(ctx, playerLeft, playerTop, playerRight, playerBottom, 
+                zoneLeft, zoneTop, zoneRight, zoneBottom) {
+    
+    // Calcular intersección
+    const intersectLeft = Math.max(playerLeft, zoneLeft);
+    const intersectRight = Math.min(playerRight, zoneRight);
+    const intersectTop = Math.max(playerTop, zoneTop);
+    const intersectBottom = Math.min(playerBottom, zoneBottom);
+    
+    // Dibujar parte visible (fuera de la zona) con opacidad normal
+    ctx.globalAlpha = this.hidingTransition.current;
+    
+    // Crear máscara para excluir la zona de ocultación
+    ctx.beginPath();
+    ctx.rect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    ctx.rect(intersectLeft, intersectTop, 
+            intersectRight - intersectLeft, 
+            intersectBottom - intersectTop);
+    ctx.clip('evenodd');
+    
+    // Dibujar jugador completo (solo se verá la parte fuera de la zona)
+    ctx.drawImage(
+      this.sprite,
+      this.frameX * this.frameWidth,
+      (this.frameYBase + this.sideToggle) * this.frameHeight,
+      this.frameWidth,
+      this.frameHeight,
+      playerLeft,
+      playerTop,
+      this.frameWidth * this.scale,
+      this.frameHeight * this.scale
+    );
+    
+    // Restaurar y dibujar parte oculta con opacidad reducida
+    ctx.restore();
+    ctx.save();
+    
+    // Crear máscara para la zona de ocultación
+    ctx.beginPath();
+    ctx.rect(intersectLeft, intersectTop, 
+            intersectRight - intersectLeft, 
+            intersectBottom - intersectTop);
+    ctx.clip();
+    
+    // Aplicar opacidad de ocultación
+    ctx.globalAlpha = this.hidingEffect.opacity * this.hidingTransition.current;
+    
+    // Dibujar jugador (solo se verá la parte dentro de la zona)
+    ctx.drawImage(
+      this.sprite,
+      this.frameX * this.frameWidth,
+      (this.frameYBase + this.sideToggle) * this.frameHeight,
+      this.frameWidth,
+      this.frameHeight,
+      playerLeft,
+      playerTop,
+      this.frameWidth * this.scale,
+      this.frameHeight * this.scale
+    );
+  }
+
+  // NUEVO MÉTODO: Efecto de invisibilidad completa
+  drawInvisibleEffect(ctx, playerLeft, playerTop, playerRight, playerBottom, 
+                      zoneLeft, zoneTop, zoneRight, zoneBottom) {
+    
+    // Calcular intersección
+    const intersectLeft = Math.max(playerLeft, zoneLeft);
+    const intersectRight = Math.min(playerRight, zoneRight);
+    const intersectTop = Math.max(playerTop, zoneTop);
+    const intersectBottom = Math.min(playerBottom, zoneBottom);
+    
+    // Solo dibujar la parte que está fuera de la zona
+    ctx.globalAlpha = this.hidingTransition.current;
+    
+    // Crear máscara para excluir la zona de ocultación
+    ctx.beginPath();
+    ctx.rect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    ctx.rect(intersectLeft, intersectTop, 
+            intersectRight - intersectLeft, 
+            intersectBottom - intersectTop);
+    ctx.clip('evenodd');
+    
+    // Dibujar jugador (solo se verá la parte fuera de la zona)
+    ctx.drawImage(
+      this.sprite,
+      this.frameX * this.frameWidth,
+      (this.frameYBase + this.sideToggle) * this.frameHeight,
+      this.frameWidth,
+      this.frameHeight,
+      playerLeft,
+      playerTop,
+      this.frameWidth * this.scale,
+      this.frameHeight * this.scale
+    );
+  }
+
+  // NUEVO MÉTODO: Efecto de contorno
+  drawOutlineEffect(ctx, playerLeft, playerTop, playerRight, playerBottom, 
+                    zoneLeft, zoneTop, zoneRight, zoneBottom) {
+    
+    // Calcular intersección
+    const intersectLeft = Math.max(playerLeft, zoneLeft);
+    const intersectRight = Math.min(playerRight, zoneRight);
+    const intersectTop = Math.max(playerTop, zoneTop);
+    const intersectBottom = Math.min(playerBottom, zoneBottom);
+    
+    // Dibujar parte visible (fuera de la zona) normalmente
+    ctx.globalAlpha = this.hidingTransition.current;
+    
+    ctx.beginPath();
+    ctx.rect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    ctx.rect(intersectLeft, intersectTop, 
+            intersectRight - intersectLeft, 
+            intersectBottom - intersectTop);
+    ctx.clip('evenodd');
+    
+    ctx.drawImage(
+      this.sprite,
+      this.frameX * this.frameWidth,
+      (this.frameYBase + this.sideToggle) * this.frameHeight,
+      this.frameWidth,
+      this.frameHeight,
+      playerLeft,
+      playerTop,
+      this.frameWidth * this.scale,
+      this.frameHeight * this.scale
+    );
+    
+    // Restaurar y dibujar contorno para la parte oculta
+    ctx.restore();
+    ctx.save();
+    
+    ctx.beginPath();
+    ctx.rect(intersectLeft, intersectTop, 
+            intersectRight - intersectLeft, 
+            intersectBottom - intersectTop);
+    ctx.clip();
+    
+    // Dibujar contorno
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.0)';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(playerLeft, playerTop, 
+                  this.frameWidth * this.scale, 
+                  this.frameHeight * this.scale);
+  }
+
+  // MÉTODO DEBUG MEJORADO: Incluir información de ocultación
   drawDebugInfo(ctx) {
     ctx.save();
     ctx.fillStyle = "white";
@@ -258,13 +496,20 @@ export class Player {
       `Dirección: ${this.lastDirection}`,
       `Frame X: ${this.frameX}`,
       `Fila Y: ${this.frameYBase}`,
-      `SideToggle: ${this.sideToggle}`
+      `SideToggle: ${this.sideToggle}`,
+      `Oculto: ${this.isHidden ? 'Sí' : 'No'}`,
+      `Opacidad: ${this.hidingTransition.current.toFixed(2)}`
     ];
     
+    if (this.hidingEffect) {
+      info.push(`Tipo ocultación: ${this.hidingEffect.type}`);
+      info.push(`Zona: ${this.hidingEffect.zone.id}`);
+    }
+    
     info.forEach((text, index) => {
-      const y = this.y - 60 + (index * 15);
-      ctx.strokeText(text, this.x - 40, y);
-      ctx.fillText(text, this.x - 40, y);
+      const y = this.y - 80 + (index * 15);
+      ctx.strokeText(text, this.x - 60, y);
+      ctx.fillText(text, this.x - 60, y);
     });
     
     ctx.restore();

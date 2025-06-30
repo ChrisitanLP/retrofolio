@@ -6,8 +6,8 @@ export const NPC_CONFIG = {
     frameWidth: 27.65,
     frameHeight: 48,
     collisionScale: {
-      width: 0.7,
-      height: 0.5
+      width: 0.4,
+      height: 0.4
     }
   },
   

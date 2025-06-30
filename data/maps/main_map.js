@@ -18,14 +18,14 @@ export const MainMapConfig = {
     },
     {
       id: 'prix', 
-      x: 500,
+      x: 600,
       y: 415,
       sprite: 'static/assets/sprites/characters/npcs/npc_2.png'
     },
     {
       id: 'will', 
       x: 1380,
-      y: 480,
+      y: 490,
       sprite: 'static/assets/sprites/characters/npcs/npc_3.png'
     },
   ],
@@ -34,7 +34,7 @@ export const MainMapConfig = {
     // Muros perimetrales
     {
       id: 'wall_top',
-      x: 68, y: 70, width: 1780, height: 150,
+      x: 68, y: 70, width: 1780, height: 140,
       type: 'perimeter',
       hasCollision: true
     },
@@ -66,27 +66,67 @@ export const MainMapConfig = {
     },
     {
       id: 'wall_left_bottom',
-      x: 68, y: 845, width: 740, height: 100,
+      x: 68, y: 860, width: 740, height: 100,
       type: 'internal',
       hasCollision: true
+    },
+    {
+      id: 'wall_left_bottom_false',
+      x: 68, y: 825, width: 740, height: 95,
+      type: 'architecture',
+      hasCollision: false,
+      isHidingZone: true,           
+      hideOpacity: 0.95,           
+      hideType: 'outline',             
+      depthLevel: 1   
     },
     {
       id: 'wall_right_bottom',
-      x: 1099, y: 845, width: 740, height: 100,
+      x: 1099, y: 860, width: 740, height: 100,
       type: 'internal',
       hasCollision: true
     },
     {
+      id: 'wall_right_bottom_false',
+      x: 1099, y: 825, width: 740, height: 95,
+      type: 'architecture',
+      hasCollision: false,
+      isHidingZone: true,           
+      hideOpacity: 0.95,           
+      hideType: 'outline',             
+      depthLevel: 1   
+    },
+    {
       id: 'wall_left_structure',
-      x: 155, y: 550, width: 525, height: 110,
+      x: 155, y: 565, width: 525, height: 95,
       type: 'structure',
       hasCollision: true
     },
     {
+      id: 'wall_left_structure_false',
+      x: 155, y: 525, width: 525, height: 95,
+      type: 'architecture',
+      hasCollision: false,
+      isHidingZone: true,           
+      hideOpacity: 0.95,           
+      hideType: 'outline',             
+      depthLevel: 1   
+    },
+    {
       id: 'wall_right_structure',
-      x: 1245, y: 550, width: 525, height: 110,
+      x: 1245, y: 565, width: 525, height: 95,
       type: 'structure',
       hasCollision: true
+    },
+    {
+      id: 'wall_right_structure_false',
+      x: 1245, y: 525, width: 525, height: 95,
+      type: 'architecture',
+      hasCollision: false,
+      isHidingZone: true,           
+      hideOpacity: 0.95,           
+      hideType: 'outline',             
+      depthLevel: 1   
     }
   ],
 
@@ -275,14 +315,14 @@ export const MainMapConfig = {
 
     {
       sprite: 'static/assets/sprites/tilesets/decor/libro_vitrina.png',
-      x: 440, y: 460, width: 45, height: 60,
+      x: 470, y: 460, width: 45, height: 60,
       hasCollision: true,
       infoId: 'gut_statue',
       type_ui: 'simple'
     },
     {
       sprite: 'static/assets/sprites/tilesets/decor/libro_vitrina.png',
-      x: 1480, y: 460, width: 45, height: 60,
+      x: 1460, y: 460, width: 45, height: 60,
       hasCollision: true,
       infoId: 'penitent_statue',
       type_ui: 'simple'

@@ -27,7 +27,7 @@ export const HabilidadesMapConfig = {
   walls: [
     {
       id: 'wall_top',
-      x: 68, y: 70, width: 1780, height: 160,
+      x: 68, y: 70, width: 1780, height: 140,
       type: 'perimeter',
       hasCollision: true
     },
@@ -45,7 +45,7 @@ export const HabilidadesMapConfig = {
     },
     {
       id: 'wall_center',
-      x: 760, y: 70, width: 122, height: 595,
+      x: 760, y: 70, width: 122, height: 580,
       type: 'perimeter',
       hasCollision: true
     },
@@ -53,27 +53,67 @@ export const HabilidadesMapConfig = {
   
     {
       id: 'wall_left_bottom',
-      x: 68, y: 845, width: 1840, height: 100,
+      x: 68, y: 860, width: 1840, height: 100,
       type: 'internal',
       hasCollision: true
     },
     {
+      id: 'wall_left_bottom_false',
+      x: 68, y: 820, width: 1840, height: 95,
+      type: 'architecture',
+      hasCollision: false,
+      isHidingZone: true,           
+      hideOpacity: 0.95,           
+      hideType: 'outline',             
+      depthLevel: 1   
+    },
+    {
       id: 'wall_left_structure',
-      x: 152, y: 540, width: 180, height: 127,
+      x: 152, y: 555, width: 180, height: 100,
       type: 'structure',
       hasCollision: true
+    },
+    {
+      id: 'wall_left_structure_false',
+      x: 152, y: 515, width: 180, height: 95,
+      type: 'architecture',
+      hasCollision: false,
+      isHidingZone: true,           
+      hideOpacity: 0.95,           
+      hideType: 'outline',             
+      depthLevel: 1   
     },
     {
       id: 'wall_center_structure',
-      x: 558, y: 540, width: 522, height: 127,
+      x: 558, y: 555, width: 522, height: 100,
       type: 'structure',
       hasCollision: true
     },
     {
+      id: 'wall_center_structure_false',
+      x: 558, y: 515, width: 522, height: 95,
+      type: 'architecture',
+      hasCollision: false,
+      isHidingZone: true,           
+      hideOpacity: 0.95,           
+      hideType: 'outline',             
+      depthLevel: 1   
+    },
+    {
       id: 'wall_right_structure',
-      x: 1319, y: 540, width: 505, height: 127,
+      x: 1319, y: 555, width: 505, height: 100,
       type: 'structure',
       hasCollision: true
+    },
+    {
+      id: 'wall_right_structure_false',
+      x: 1319, y: 515, width: 505, height: 95,
+      type: 'architecture',
+      hasCollision: false,
+      isHidingZone: true,           
+      hideOpacity: 0.95,           
+      hideType: 'outline',             
+      depthLevel: 1   
     }
   ],
 
@@ -151,12 +191,12 @@ export const HabilidadesMapConfig = {
     },
     {
       sprite: 'static/assets/sprites/tilesets/decor/hability_map/impaldiesel_vitrina.png',
-      x: 320, y: 370, width: 120, height: 190,
+      x: 298, y: 370, width: 120, height: 190,
       hasCollision: true
     },
     {
       sprite: 'static/assets/sprites/tilesets/decor/hability_map/eeasa_vitrina.png',
-      x: 580, y: 370, width: 120, height: 190,
+      x: 600, y: 370, width: 120, height: 190,
       hasCollision: true
     },
     {
@@ -195,17 +235,17 @@ export const HabilidadesMapConfig = {
 
     {
       sprite: 'static/assets/sprites/tilesets/decor/hability_map/gbd_vitrina.png',
-      x: 1050, y: 390, width: 200, height: 135,
+      x: 1050, y: 370, width: 200, height: 135,
       hasCollision: true
     },
     {
       sprite: 'static/assets/sprites/tilesets/decor/hability_map/web_vitrina.png',
-      x: 1320, y: 390, width: 200, height: 135,
+      x: 1320, y: 370, width: 200, height: 135,
       hasCollision: true
     },
     {
       sprite: 'static/assets/sprites/tilesets/decor/hability_map/back_vitrina.png',
-      x: 1590, y: 390, width: 200, height: 135,
+      x: 1590, y: 370, width: 200, height: 135,
       hasCollision: true
     },
 
@@ -258,21 +298,21 @@ export const HabilidadesMapConfig = {
     },
     {
       sprite: 'static/assets/sprites/tilesets/decor/libro_vitrina.png',
-      x: 1050, y: 455, width: 45, height: 60,
+      x: 1050, y: 462, width: 45, height: 60,
       hasCollision: true,
       infoId: 'database_skills',
       type_ui: 'principal'
     },
     {
       sprite: 'static/assets/sprites/tilesets/decor/libro_vitrina.png',
-      x: 1315, y: 455, width: 45, height: 60,
+      x: 1315, y: 462, width: 45, height: 60,
       hasCollision: true,
       infoId: 'frontend_skills',
       type_ui: 'principal'
     },
     {
       sprite: 'static/assets/sprites/tilesets/decor/libro_vitrina.png',
-      x: 1590, y: 455, width: 45, height: 60,
+      x: 1590, y: 462, width: 45, height: 60,
       hasCollision: true,
       infoId: 'backend_skills',
       type_ui: 'principal'
