@@ -21,7 +21,7 @@ export const ProyectosMapConfig = {
   walls: [
     {
       id: 'wall_top',
-      x: 68, y: 70, width: 1780, height: 170,
+      x: 68, y: 70, width: 1780, height: 160,
       type: 'perimeter',
       hasCollision: true
     },
@@ -41,21 +41,51 @@ export const ProyectosMapConfig = {
   
     {
       id: 'wall_left_bottom',
-      x: 68, y: 845, width: 1840, height: 100,
+      x: 68, y: 860, width: 1840, height: 100,
       type: 'internal',
       hasCollision: true
     },
     {
+      id: 'wall_left_bottom_false',
+      x: 68, y: 817, width: 1840, height: 95,
+      type: 'architecture',
+      hasCollision: false,
+      isHidingZone: true,           
+      hideOpacity: 0.95,           
+      hideType: 'outline',             
+      depthLevel: 1   
+    },
+    {
       id: 'wall_left_structure',
-      x: 152, y: 480, width: 663, height: 127,
+      x: 152, y: 500, width: 663, height: 100,
       type: 'structure',
       hasCollision: true
     },
     {
+      id: 'wall_left_structure_false',
+      x: 152, y: 452, width: 663, height: 105,
+      type: 'architecture',
+      hasCollision: false,
+      isHidingZone: true,           
+      hideOpacity: 0.95,           
+      hideType: 'outline',             
+      depthLevel: 1   
+    },
+    {
       id: 'wall_right_structure',
-      x: 1306, y: 430, width: 505, height: 240,
+      x: 1306, y: 450, width: 505, height: 205,
       type: 'structure',
       hasCollision: true
+    },
+    {
+      id: 'wall_right_structure_false',
+      x: 1306, y: 400, width: 505, height: 95,
+      type: 'architecture',
+      hasCollision: false,
+      isHidingZone: true,           
+      hideOpacity: 0.95,           
+      hideType: 'outline',             
+      depthLevel: 1   
     }
   ],
 
@@ -63,17 +93,17 @@ export const ProyectosMapConfig = {
   decorations: [
     {
       sprite: 'static/assets/sprites/tilesets/decor/projects_map/acroware_vitrina.png',
-      x: 450, y: 370, width: 120, height: 190,
+      x: 450, y: 360, width: 110, height: 180,
       hasCollision: true
     },
     {
       sprite: 'static/assets/sprites/tilesets/decor/projects_map/php_vitrina.png',
-      x: 555, y: 370, width: 90, height: 150,
+      x: 555, y: 360, width: 90, height: 150,
       hasCollision: true
     },
     {
       sprite: 'static/assets/sprites/tilesets/decor/projects_map/mysql_vitrina.png',
-      x: 338, y: 370, width: 90, height: 150,
+      x: 338, y: 360, width: 90, height: 150,
       hasCollision: true
     },
     {
@@ -88,7 +118,7 @@ export const ProyectosMapConfig = {
     },
     {
       sprite: 'static/assets/sprites/tilesets/decor/projects_map/crisu_vitrina.png',
-      x: 1530, y: 360, width: 120, height: 190,
+      x: 1530, y: 320, width: 100, height: 150,
       hasCollision: true
     },
     {
@@ -266,7 +296,7 @@ export const ProyectosMapConfig = {
     },
     {
       sprite: 'static/assets/sprites/tilesets/decor/libro_vitrina.png',
-      x: 1428, y: 390, width: 45, height: 60,
+      x: 1438, y: 355, width: 45, height: 60,
       hasCollision: true,
       infoId: 'crisu'
     },
