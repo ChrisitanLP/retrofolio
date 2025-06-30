@@ -1,0 +1,169 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+/* styles/style.css */
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+  background: #a0a0a0;
+  font-family: 'Press Start 2P', monospace;
+}
+
+canvas {
+  display: block;
+}
+
+.interaction-prompt {
+  display: none; /* ← Debe estar oculto por defecto */
+  /* resto de estilos */
+}
+
+.dialog-container {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70%;
+  max-width: 70%;
+  height: 25%;
+  background-image: url('../static/assets/sprites/UI/dialog_box.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  display: none;
+  align-items: center;
+  box-sizing: border-box;
+  margin-bottom: 90px;
+}
+
+/* Nuevo contenedor específico para el diálogo del guía */
+.guide-dialog-container {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70%;
+  max-width: 70%;
+  height: 25%;
+  background-image: url('../static/assets/sprites/UI/dialog_principal.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  display: none;
+  align-items: center;
+  box-sizing: border-box;
+  margin-bottom: 90px;
+  z-index: 1001;
+}
+
+.guide-dialog-container .text-box {
+  color: #2c2c2c; 
+  padding-left: 135px;
+}
+
+.guide-dialog-container .portrait {
+  width: 0%;
+  margin-bottom: 10px;
+  margin-left: 100px;
+}
+
+.guide-dialog-container .name-box {
+  color: #1a1a1a;
+  padding-bottom: 9px;
+  margin-left: -155px;
+  font-size: 13px;
+}
+
+.guide-dialog-container .close-icon{
+  top: 10px;
+  right: -25px;
+}
+
+.guide-dialog-container .continue-hint{
+  bottom: -12px;
+  color: #d3d1d1;
+}
+
+.dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 10%;
+  height: 10%;
+  background-color: rgba(0, 0, 0, 0.37);
+  display: none;
+  z-index: 1000;
+}
+
+.portrait {
+  width: 12%;
+  image-rendering: pixelated;
+  margin-bottom: 20px;
+  margin-left: 165px;
+}
+
+.dialog-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 95%;
+  color: #000;
+}
+
+.continue-hint {
+  position: absolute;
+  bottom: -12px;
+  left: 63%;
+  transform: translateX(-50%);
+  font-size: 12px;
+  color: #3f3f3f;
+  font-family: 'Press Start 2P', monospace;
+  padding: 6px 10px;
+  text-align: center;
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+.text-box {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #585858;
+  margin-top: 110px;
+  padding-left: 159px;
+  margin-right: 54px;
+}
+
+.name-box {
+  align-self: flex-start;
+  color: #444343;
+  padding-bottom: 35px;
+  margin-left: -110px;
+  font-size: 18px;
+}
+
+.interaction-prompt {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #535353;
+  font-family: 'Press Start 2P', monospace;
+  padding: 105px 170px;
+  font-size: 13px;
+  display: none;
+  background-image: url('../static/assets/sprites/UI/dialog_character.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+.close-icon {
+  position: absolute;
+  top: 30px;
+  right: -10px;
+  font-size: 20px;
+  color: #ff4444;
+  cursor: pointer;
+  z-index: 10;
+  user-select: none;
+}
