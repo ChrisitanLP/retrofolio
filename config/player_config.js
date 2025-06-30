@@ -14,8 +14,8 @@ export const PLAYER_CONFIG = {
   
   // Colisiones
   collisionScale: {
-    width: 0.28,
-    height: 0.2
+    width: 0.24,
+    height: 0.40
   },
   
   // Animación idle
