@@ -141,6 +141,31 @@ export class InteractiveInfoWindow {
         padding: 2px 15px;
       }
 
+      .popup.default .dialog-link-ii {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        font-size: 24px;
+        color: #fff; /* color blanco para contraste */
+        background-color: #555972; /* fondo negro */
+        border-radius: 50%; /* forma redonda */
+        border: 6px solid #b2adcd; 
+        text-shadow: 0 0 1px #fff;
+        transition: transform 0.2s ease;
+        position: relative;
+        margin-right: auto;
+        margin-top: 5px
+        padding: 6px;
+      }
+
+      .popup.default .dialog-link-ii:hover {
+        transform: scale(1.2);
+        background-color: #222;
+      }
+
       .popup.default .popup-content {
         flex: 1 1 auto;
         background-image: url("static/assets/sprites/UI/contenido_afiche.png");
@@ -641,7 +666,9 @@ export class InteractiveInfoWindow {
             <img id="popup-badge-img" src="${data.projectIcon || ''}" alt="Project Icon">
         </div>
         <p class="content" id="popup-content-text">${data.content || 'Contenido'}</p>
-        ${data.link ? `<a class="content link" href="${data.link}" target="_blank" rel="noopener noreferrer">Ver más</a>` : ''}
+        <a href="${data.link}" class="dialog-link-ii" target="_blank" rel="noopener noreferrer" title="Ir al proyecto">
+          🔗
+        </a>
       </div>
       <div class="popup-footer">
         <div class="popup-icons" id="popup-icons-container">
