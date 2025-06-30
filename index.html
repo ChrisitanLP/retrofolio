@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portafolio | ChrisLP</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/styles.css">
+  <link rel="icon" type="image/png" href="static\assets\logo.png">
+</head>
+<body>
+  <canvas id="gameCanvas"></canvas>
+  
+  <div id="interactionPrompt" class="interaction-prompt">Presiona [X] para hablar</div>
+
+  <div class="dialog-container" id="dialog">
+    <div id="closeIcon" class="close-icon" style="display: none;">❌</div>
+    <canvas id="npcPortrait" class="portrait"></canvas>
+    <div class="dialog-content">
+      <div class="text-box" id="dialogText"></div>
+      <div class="name-box" id="dialogName"></div>
+    </div>
+    <div class="continue-hint" id="continueHint">Presiona [ESPACIO] para continuar...</div>
+  </div>
+
+  <div id="transition-overlay" style="
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 1000;
+    transition: opacity 900ms ease-in-out;
+  "></div>
+
+  <!-- Configuraciones -->
+  <script src="config/decoration_config.js"></script>
+  <script src="config/dialog_config.js"></script>
+  <script src="config/npc_config.js"></script>      
+  <script src="config/player_config.js"></script>  
+  <script src="config/portrait_config.js"></script>  
+
+  <!-- Scripts de datos -->
+  <script src="data/npc/dialog_data.js"></script>
+
+  <!-- Scripts del núcleo -->
+  <script src="scripts/core/utils.js"></script>
+  <script src="scripts/world/npc_guia.js"></script>
+
+  <!-- Scripts de componentes (módulos) -->
+  <script src="scripts/components/wallManager.js"></script>
+  <script type="module" src="scripts/components/player.js"></script>
+  <script type="module" src="scripts/components/npc.js"></script>
+  <script type="module" src="scripts/ui/portraitAnimator.js"></script>
+  <script type="module" src="scripts/components/dialog.js"></script>
+  <script type="module" src="scripts/world/decoration.js"></script>
+
+  <!-- NUEVO: Scripts de mapas -->
+  <script type="module" src="data/maps/main_map.js"></script>
+  <script type="module" src="data/maps/proyectos_map.js"></script>
+  <script type="module" src="data/maps/habilidades_map.js"></script>
+
+  <!-- NUEVO: MapManager -->
+  <script type="module" src="scripts/core/mapManager.js"></script>
+
+  <!-- Script principal -->
+  <script type="module" src="scripts/core/main.js"></script>
+</body>
+</html>

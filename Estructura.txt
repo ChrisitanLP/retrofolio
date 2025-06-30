@@ -1,0 +1,70 @@
+/portafolio-retro/
+│
+├── index.html                      # Página principal única del portafolio
+├── favicon.ico
+│
+├── config/
+│   ├── decoration_config.js 
+│   ├── dialog_config.js 
+│   ├── npc_config.js 
+│   ├── player_config.js 
+│   └── portrait_config.js 
+│
+├── styles/
+│   └── style.css                   # Estilos principales
+│
+├── data/
+│   ├── maps/                       # Configuración de cada pantalla/mapa
+│   │   ├── main_map.js 
+│   │   ├── proyectos_map.js 
+│   │   ├── habilidades_map.js 
+│   │   └── interactive_info.js  
+│   │
+│   └── npc_data/                   
+│       └── dialog_data.js
+│
+├── scripts/
+│   ├── core/                       # Núcleo del motor
+│   │   ├── main.js                 # Lógica principal del juego
+│   │   ├── utils.js
+│   │   └── mapManager.js          # Gestor de cambios de mapas
+│   │
+│   ├── components/                # Entidades del juego
+│   │   ├── player.js
+│   │   ├── npc.js
+│   │   ├── dialog.js
+│   │   └── wallManager.js
+│   │
+│   ├── ui/                         # Interfaz gráfica
+│   │   ├── portraitAnimator.js
+│   │   ├── interactiveInfo.js
+│   │   └── transitions.js         # Fundido, animaciones, etc.
+│   │
+│   └── world/                      # Elementos del entorno
+│       ├── decoration.js
+│       ├── collision_wall.js
+│       ├── interactiveDecoration.js
+│       └── npc_guia.js
+│
+├── static/
+│   └── assets/
+│       ├── background/             
+│       │
+│       └── sprites/
+│           ├── characters/
+│           │   ├── npcs/
+│           │   │   └── Portrait/
+│           │   └── player/
+│           │       └── Portrait/
+│           │
+│           ├── tilesets/
+│           │   ├── decor/
+│           │   ├── floor/
+│           │   └── walls/
+│           │
+│           └── UI/
+│               ├── buttons/
+│               ├── indicators/
+│               └── dialog/
+│
+└── README.md                       # Documentación del proyecto
